@@ -1,0 +1,11 @@
+server:
+  port: 9998
+spring:
+  application:
+    name: second-demo
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:1000/eureka

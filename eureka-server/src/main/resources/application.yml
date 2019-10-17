@@ -1,0 +1,14 @@
+server:
+  port: 1000 #端口号
+spring:
+  application:
+    name: eureka-server #服务名
+eureka:
+  client:
+    register-with-eureka: false #是否向注册中心注册服务
+    fetch-registry: false #是否向注册中心发现服务
+    service-url: #注册中心地址，配置多服务器注册中心时需要将多个ip用‘,’分隔
+      defaultZone: http://127.0.0.1:${server.port}/eureka
+    server:
+      enable-self-preservation: false #自我保护设置，当微服务不再报告状态时，也不会立即将其删除，在开发阶段建议设置false
+      eviction-interval-timer-in-ms: 3600 #服务注册表清理间隔

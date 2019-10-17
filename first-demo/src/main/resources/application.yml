@@ -1,0 +1,98 @@
+#服务器设置
+server:
+  port: 9999
+#spring设置
+spring:
+  #服务名称
+  application:
+    name: first-demo
+  #devtools热部署
+  devtools:
+    restart:
+      enabled: true
+  #datasource数据源配置
+  datasource:
+    postgresql:
+      dbType: postgresql
+      driver: org.postgresql.Driver
+      jdbcUrl: jdbc:postgresql://47.100.58.21:5432/example?charSet=utf-8
+      userName: admin
+      password: admin
+    mysql:
+      dbType: mysql
+      driver: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://47.100.58.21:3306/example?useSSL=false&serverTimezone=UTC
+      userName: root
+      password: Loyer134.
+    oracle:
+      dbType: oracle
+      driver: oracle.jdbc.driver.OracleDriver
+      jdbcUrl: jdbc:oracle:thin:@localhost:1521:orcl
+      userName: chis
+      password: chis
+  #redis配置
+  redis:
+    database: 0
+    host: 47.100.58.21
+    port: 6379
+    password: 130304
+    timeout: 1000
+  #servlet配置
+  servlet:
+    multipart:
+      max-file-size: 100MB #设置单个文件的大小
+      max-request-size: 1000MB #设置单次请求的文件的总大小
+  #freemarker模板引擎
+  freemarker:
+    template-loader-path: classpath:/templates
+    cache: false
+    charset: UTF-8
+    content-type: text/html
+    suffix: .ftl
+    check-template-location: true
+    expose-request-attributes: true
+    expose-session-attributes: true
+    request-context-attribute: request
+  #thymeleaf模板引擎
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false
+    encoding: UTF-8
+    suffix: .html
+    mode: HTML
+  #加载静态文件js/css
+  mvc:
+    static-path-pattern: /static/**
+#mybatis整合设置
+mybatis: #exclude = {DataSourceAutoConfiguration.class, MybatisAutoConfiguration.class} 已配置失效
+  type-aliases-package: com.example.example.persistence.oracle  #扫描mapper文件路径
+  mapper-locations: classpath*:com/example/example/persistence/oracle/mapper/*.xml #扫描xml文件路径
+  configuration:
+    map-underscore-to-camel-case: true #数据库表字段自动映射实体类驼峰式命名 如user_name=》userName
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #输出SQL执行语句包含结果集
+#logging日志
+logging:
+  level:
+    com.loyer.example: debug #sql日志输出
+#pagehelper分页
+pagehelper:
+  #helperDialect: mysql #指定数据库类型
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+#jssdk属性配置
+jssdk:
+  appID: wxade8f634a2991f7d
+  appSecret: 26efb3585d68d8d06d03b086e1811e1b
+  getTokenUrl: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s
+  getTicketUrl: https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=jsapi
+#eureka客户端配置
+eureka:
+  client:
+    register-with-eureka: true #是否向注册中心注册服务
+    fetch-registry: true #是否向注册中心发现服务
+    service-url:
+      defaultZone: http://127.0.0.1:1000/eureka #注册中心地址，配置多服务器注册中心时需要将多个ip用‘,’分隔
+  instance:
+    prefer-ip-address: true #将自己的IP注册到eureka
+    ip-address: 127.0.0.1 #注册的ip地址，不指定的话会自己寻找
